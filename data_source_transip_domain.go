@@ -73,6 +73,11 @@ func dataSourceDomain() *schema.Resource {
 				Description: "Next renewal date of the domain, in YYYY-mm-dd format.",
 				Computed:    true,
 			},
+			"status": {
+				Type:        schema.TypeString,
+				Description: "The status of a domain (Can be one of: registered, gone, dnsonly, inprogress, dropinprogress).",
+				Computed:    true,
+			},
 		},
 	}
 }
@@ -110,8 +115,9 @@ func dataSourceDomainRead(d *schema.ResourceData, m interface{}) error {
 	d.Set("is_dns_only", i.IsDNSOnly)
 	d.Set("is_transfer_locked", i.IsTransferLocked)
 	d.Set("is_whitelabel", i.IsWhitelabel)
-	d.Set("registation_date", i.RegistrationDate)
+	d.Set("registration_date", i.RegistrationDate)
 	d.Set("renewal_date", i.RenewalDate)
+	d.Set("status", i.Status)
 
 	return nil
 }
